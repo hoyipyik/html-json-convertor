@@ -16,7 +16,7 @@ def html_to_json(element):
     # Extract the text of the current layer only
     pieces = [text.strip() for text in element.find_all(string=True, recursive=False)]
     text = " ".join(pieces)
-    #generate an id based on ramdom number and hash of the element
+    # generate an id based on ramdom number and hash of the element
     element_id = hash(element)
     
     children_json = []
@@ -73,29 +73,22 @@ for element in elements_with_style:
 for tag in soup(['script', 'style', 'noscript', 'link', 'meta']):
     tag.extract()
 
+# save the raw html
 with open('raw.html', 'w') as f:
     # prettify the html
     clean_html_content = soup.prettify()
     f.write(str(clean_html_content))
-# Parse the HTML content using BeautifulSoup
+
 soup = BeautifulSoup(clean_html_content, 'html.parser')
-
-# Find the parent element using its ID
-parent_id = 'root'  # Replace with the actual parent ID
-# use soup to get the body of html
-# parent_element as the whole of html
 parent_element = soup.find('html')
-# parent_element = soup.find(id=parent_id)
 
-# Convert the parent element and its children to a dictionary
 if parent_element:
-    # element_dict = element_to_dict(parent_element)
     element_dict = html_to_json(parent_element)
 
     html_string = json_to_html(element_dict)
-    # write to a file named html.html
+
+    # Save the restored HTML
     with open('restored_html.html', 'w') as f:
-        # prettify the html
         html_string = html_string.prettify()
         f.write(str(html_string))
 
@@ -103,7 +96,7 @@ if parent_element:
     with open('json.json', 'w') as json_file:
         json.dump(element_dict, json_file, indent=4, ensure_ascii=False)
 else:
-    print(f'Element with ID "{parent_id}" not found.')
+    print(f'Element not found')
 
 # Close the WebDriver
 driver.quit()
