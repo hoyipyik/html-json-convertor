@@ -73,8 +73,9 @@ for element in elements_with_style:
 for tag in soup(['script', 'style', 'noscript', 'link', 'meta']):
     tag.extract()
 
-clean_html_content = str(soup)
 with open('raw.html', 'w') as f:
+    # prettify the html
+    clean_html_content = soup.prettify()
     f.write(str(clean_html_content))
 # Parse the HTML content using BeautifulSoup
 soup = BeautifulSoup(clean_html_content, 'html.parser')
@@ -94,6 +95,8 @@ if parent_element:
     html_string = json_to_html(element_dict)
     # write to a file named html.html
     with open('restored_html.html', 'w') as f:
+        # prettify the html
+        html_string = html_string.prettify()
         f.write(str(html_string))
 
     # Save the dictionary as a JSON file
