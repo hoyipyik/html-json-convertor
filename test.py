@@ -1,4 +1,6 @@
 import json
+import random
+import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
@@ -14,6 +16,8 @@ def html_to_json(element):
     # Extract the text of the current layer only
     pieces = [text.strip() for text in element.find_all(string=True, recursive=False)]
     text = " ".join(pieces)
+    #generate an id based on ramdom number and hash of the element
+    element_id = hash(element)
     
     children_json = []
 
@@ -26,7 +30,8 @@ def html_to_json(element):
         'tag': tag,
         'attributes': attributes,
         'children': children_json,
-        'text': text
+        'text': text,
+        'elementId': element_id
     }
 
     return json_element
@@ -44,6 +49,7 @@ def json_to_html(json_element):
         html_element.append(child_html)
 
     return html_element
+
 # user_data_dir = "/Users/charanreddy/user_data"
 options = webdriver.ChromeOptions()
 options.add_argument('headless')
@@ -63,6 +69,7 @@ elements_with_style = soup.select('[style]')
 for element in elements_with_style:
     del element['style']
     
+# Remove the script, style, noscript, link, and meta tags
 for tag in soup(['script', 'style', 'noscript', 'link', 'meta']):
     tag.extract()
 
