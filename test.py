@@ -36,8 +36,7 @@ def json_to_html(json_element):
     attributes = json_element.get('attributes', {})
     children_json = json_element.get('children', [])
     text = json_element.get('text', '')
-    print(tag)
-    html_element = BeautifulSoup('', 'html.parser').new_tag(tag, **attributes)
+    html_element = BeautifulSoup('', 'html.parser').new_tag(name=tag, attrs=attributes)
     html_element.string = text
     
     for child_json in children_json:
@@ -76,7 +75,8 @@ soup = BeautifulSoup(clean_html_content, 'html.parser')
 # Find the parent element using its ID
 parent_id = 'root'  # Replace with the actual parent ID
 # use soup to get the body of html
-parent_element = soup.find('body')
+# parent_element as the whole of html
+parent_element = soup.find('html')
 # parent_element = soup.find(id=parent_id)
 
 # Convert the parent element and its children to a dictionary
@@ -84,10 +84,10 @@ if parent_element:
     # element_dict = element_to_dict(parent_element)
     element_dict = html_to_json(parent_element)
 
-    # html_string = json_to_html(element_dict)
-    # # write to a file named html.html
-    # with open('restored_html.html', 'w') as f:
-    #     f.write(str(html_string))
+    html_string = json_to_html(element_dict)
+    # write to a file named html.html
+    with open('restored_html.html', 'w') as f:
+        f.write(str(html_string))
 
     # Save the dictionary as a JSON file
     with open('json.json', 'w') as json_file:
