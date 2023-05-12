@@ -1,4 +1,3 @@
-import json
 import time
 from py2neo import Graph
 import os
