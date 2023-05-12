@@ -18,13 +18,13 @@ def add_child_by_elementId(json_obj, parent_element_id, new_child):
     return False
 
 if __name__ == '__main__':
-    with open('json.json', 'r') as json_file:
+    with open('../json.json', 'r') as json_file:
         json_obj = json.load(json_file)
         new_element = {
             "tag": "span",
            "text": "New child span element"
         }
-        add_child_by_elementId(json_obj, -1400270133389665487, new_element)
+        add_child_by_elementId(json_obj, -8242187003519717687, new_element)
         # write to removed.json
         with open('added.json', 'w') as removed_file:
             json.dump(json_obj, removed_file, indent=4, ensure_ascii=False)

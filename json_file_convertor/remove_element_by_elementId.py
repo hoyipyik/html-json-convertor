@@ -18,9 +18,9 @@ def remove_element_by_elementId(json_obj, element_id):
 # if run in main
 if __name__ == '__main__':
     # read json from json.json
-    with open('json.json', 'r') as json_file:
+    with open('../json.json', 'r') as json_file:
         json_obj = json.load(json_file)
-        new = remove_element_by_elementId(json_obj, -1236924755112662497)
+        new = remove_element_by_elementId(json_obj, 9220435663088187748)
         # write to removed.json
         with open('removed.json', 'w') as removed_file:
             json.dump(new, removed_file, indent=4, ensure_ascii=False)

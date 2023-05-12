@@ -15,7 +15,7 @@ def upgrade_part_of_the_element_by_elementId(json_obj, search_element_id, proper
 
 
 if __name__ == '__main__':
-    with open('json.json', 'r') as json_file:
+    with open('../json.json', 'r') as json_file:
         json_obj = json.load(json_file)
         upgrade_part_of_the_element_by_elementId(json_obj, -8242187003519717687, "tag", "iframe")
         upgrade_part_of_the_element_by_elementId(json_obj, -8242187003519717687, "text", "Google ))))))")

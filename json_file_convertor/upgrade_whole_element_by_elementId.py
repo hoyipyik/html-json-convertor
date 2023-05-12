@@ -15,7 +15,7 @@ def upgrade_whole_element_by_elementId(json_obj, search_element_id, update_eleme
     return False
 
 if __name__ == '__main__':
-    with open('json.json', 'r') as json_file:
+    with open('../json.json', 'r') as json_file:
         json_obj = json.load(json_file)
         update_element = {
             "tag": "span",
