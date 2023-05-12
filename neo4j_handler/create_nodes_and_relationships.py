@@ -1,8 +1,12 @@
 import json
 from py2neo import Graph
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+password = os.environ.get("NEO4J_PASSWORD")
 # Connect to the Neo4j server
-graph = Graph("bolt://localhost:7687", auth=("neo4j", "3190021410"))
+graph = Graph("bolt://localhost:7687", auth=("neo4j", password))
 
 # Recursively create nodes and relationships from JSON
 def create_nodes_and_relationships(parent, data):
