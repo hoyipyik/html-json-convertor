@@ -8,6 +8,7 @@ password = os.environ.get("NEO4J_PASSWORD")
 # Connect to the Neo4j server
 graph = Graph("bolt://localhost:7687", auth=("neo4j", password))
 
+cnt = [1]
 # Recursively create nodes and relationships from JSON
 def create_nodes_and_relationships(parent, data):
     tag = data["tag"]
@@ -15,13 +16,16 @@ def create_nodes_and_relationships(parent, data):
     attributes = data["attributes"]
     children = data["children"]
     text = data["text"]
-    
+    numId = cnt[0]
+
+    cnt[0] = cnt[0] + 1
+
     query = f"""
-    MERGE (n:Node {{tag: $tag, elementId: $elementId, text: $text}})
+    MERGE (n:Node {{tag: $tag, elementId: $elementId, text: $text, numId: $numId}})
     SET n += $attributes
     RETURN n
     """
-    node = graph.run(query, tag=tag, elementId=elementId, text=text, attributes=attributes).evaluate()
+    node = graph.run(query, tag=tag, elementId=elementId, numId=numId, text=text, attributes=attributes).evaluate()
     
     if parent:
         query = f"""
