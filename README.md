@@ -15,3 +15,6 @@ This folder contains some functions to insert, remove and upgrade the json file 
 ## neo4j_handler
 
 This folder includes manipulation functions on neo4j database. 
+
+
+By Alex.Ho
